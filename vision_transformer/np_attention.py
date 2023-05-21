@@ -32,6 +32,8 @@ if __name__ == "__main__":
     z = score @ V   # (4, 197, 64)
     # multi-head attn: 12 heads. let's just mock them! ps: 12 * 64 = 768
     z = np.concatenate([z for _ in range(num_heads)], axis=2)   # (4, 197, 768)
+    W_O = np.random.uniform(low=-0.5, high=0.5, size=(num_heads*attn_dim, hidden_dim))  # (768, 768)
+    z = z @ W_O   # (4, 197, 768)
     # residual
     x = x + z  # (4, 197, 768)
 
